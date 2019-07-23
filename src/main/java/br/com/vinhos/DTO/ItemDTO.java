@@ -1,8 +1,9 @@
 package br.com.vinhos.DTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 
 @Data
 @AllArgsConstructor

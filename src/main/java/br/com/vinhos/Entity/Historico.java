@@ -1,8 +1,9 @@
 package br.com.vinhos.Entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "HISTORICOS")
 public class Historico {
@@ -30,6 +32,7 @@ public class Historico {
     @JoinColumn(name = "ID_CLIENTE")
     private Cliente cliente;
 
+    @Builder.Default
     @OneToMany(mappedBy = "historico")
     private List<Item> itens = new ArrayList<>();
 
