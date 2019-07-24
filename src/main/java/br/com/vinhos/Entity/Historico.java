@@ -1,15 +1,19 @@
 package br.com.vinhos.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +24,7 @@ import java.util.List;
 public class Historico {
 
     @Id
-    @GeneratedValue(generator = "HISTORICO_SEQ", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "CODIGO")
@@ -30,11 +34,12 @@ public class Historico {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
 
+    @JsonIgnore
     @ManyToOne
     private Cliente cliente;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "historico")
+    @OneToMany(cascade = ALL, mappedBy = "historico")
     private List<Item> itens = new ArrayList<>();
 
     @Column(name = "VALOR_TOTAL")

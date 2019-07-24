@@ -1,14 +1,16 @@
 package br.com.vinhos.Entity;
 
-import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +21,7 @@ import java.util.List;
 public class Cliente {
 
     @Id
-    @GeneratedValue(generator = "CLIENTE_SEQ", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "NOME")
@@ -29,7 +31,7 @@ public class Cliente {
     private String cpf;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    @OneToMany(cascade = ALL, mappedBy = "cliente")
     private List<Historico> historicos = new ArrayList<>();
 
 }

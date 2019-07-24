@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public abstract class ParseData {
-    private static DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter FORMATADOR = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static LocalDate stringToLocalDate(String data){
-        return LocalDate.parse(data, formatador);
+        return LocalDate.parse(data, FORMATADOR);
     }
 
     public static String localDateToString(LocalDate data){
-        return data.format(formatador);
+        return data.format(FORMATADOR);
     }
 }

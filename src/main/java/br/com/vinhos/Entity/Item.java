@@ -1,11 +1,14 @@
 package br.com.vinhos.Entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +19,7 @@ import javax.persistence.*;
 public class Item {
 
     @Id
-    @GeneratedValue(generator = "ITEM_SEQ", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "PRODUTO")
@@ -37,8 +40,8 @@ public class Item {
     @Column(name = "PRECO")
     private Double preco;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "ID_HISTORICO")
     private Historico historico;
 
 }
