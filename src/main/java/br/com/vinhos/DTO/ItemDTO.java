@@ -8,6 +8,7 @@ import lombok.Builder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ItemDTO {
 
     private String produto;

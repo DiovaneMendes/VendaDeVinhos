@@ -7,6 +7,8 @@ import lombok.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,5 +27,9 @@ public class Cliente {
 
     @Column(name = "CPF")
     private String cpf;
+
+    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Historico> historicos = new ArrayList<>();
 
 }

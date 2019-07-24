@@ -1,37 +1,46 @@
+import br.com.vinhos.Component.RequestAPI;
+import br.com.vinhos.DTO.ClienteDTO;
 import br.com.vinhos.DTO.HistoricoDTO;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import br.com.vinhos.Entity.Cliente;
+import br.com.vinhos.Entity.Historico;
+import br.com.vinhos.Factory.ClienteFactory;
+import br.com.vinhos.Factory.HistoricoFactory;
+import br.com.vinhos.Repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public class Spike {
+
+    @Autowired
+    private static ClienteRepository clienteRepository;
+
     public static void main(String[] args) {
+        aaa();
 
-        Gson gson = new Gson();
+    }
 
-        OkHttpClient client = new OkHttpClient();
+    public static void aaa(){
+        List<HistoricoDTO> historicoDTOS = RequestAPI.historico();
+        List<ClienteDTO> clienteDTOS = RequestAPI.cliente();
 
-        Request request = new Request.Builder()
-                .url("http://www.mocky.io/v2/598b16861100004905515ec7")
-                .build();
 
-        try {
-            Response response = client.newCall(request).execute();
+        for (ClienteDTO clienteDTO: clienteDTOS){
+            List<Historico> historicosCliente = historicoDTOS.stream()
+                    .filter(historicoDTO -> historicoDTO.getCliente().equals( clienteDTO.getCpf().replace('-', '.') ) )
+                    .map(HistoricoFactory::getHistorico)
+                    .collect(toList());
+            System.out.println("==========================================================");
 
-            Type listaHistoricoType = new TypeToken<ArrayList<HistoricoDTO>>(){}.getType();
+            historicosCliente.forEach(System.out::println);
 
-            List<HistoricoDTO> lista = gson.fromJson(response.body().string(), listaHistoricoType);
+            System.out.println("==========================================================");
+            Cliente cliente = ClienteFactory.getCliente(clienteDTO);
+            cliente.setHistoricos(historicosCliente);
 
-            lista.forEach(System.out::println);
-
-        } catch (IOException e) {
-            e.getMessage();
+            clienteRepository.save(new Cliente());
         }
     }
 }

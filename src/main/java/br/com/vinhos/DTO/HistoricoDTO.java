@@ -1,15 +1,16 @@
 package br.com.vinhos.DTO;
 
-import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class HistoricoDTO {
 
     private String codigo;

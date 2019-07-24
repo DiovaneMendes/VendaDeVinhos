@@ -3,16 +3,16 @@ package br.com.vinhos.Factory;
 import br.com.vinhos.DTO.ClienteDTO;
 import br.com.vinhos.Entity.Cliente;
 
-public class ClienteFactory {
+public abstract class ClienteFactory {
 
-    public Cliente getCliente(ClienteDTO clienteDTO){
+    public static Cliente getCliente(ClienteDTO clienteDTO){
         return Cliente.builder()
                 .nome(clienteDTO.getNome())
                 .cpf(clienteDTO.getCpf())
                 .build();
     }
 
-    public ClienteDTO getCliente(Cliente cliente){
+    public static ClienteDTO getCliente(Cliente cliente){
         return ClienteDTO.builder()
                 .nome(cliente.getNome())
                 .cpf(cliente.getCpf())

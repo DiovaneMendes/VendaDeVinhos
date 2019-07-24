@@ -1,5 +1,6 @@
 package br.com.vinhos.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,14 +27,14 @@ public class Historico {
     private String codigo;
 
     @Column(name = "DATA")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_CLIENTE")
+    @ManyToOne
     private Cliente cliente;
 
     @Builder.Default
-    @OneToMany(mappedBy = "historico")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "historico")
     private List<Item> itens = new ArrayList<>();
 
     @Column(name = "VALOR_TOTAL")
