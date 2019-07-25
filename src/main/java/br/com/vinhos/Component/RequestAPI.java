@@ -1,6 +1,5 @@
 package br.com.vinhos.Component;
 
-
 import br.com.vinhos.DTO.ClienteDTO;
 import br.com.vinhos.DTO.HistoricoDTO;
 import com.google.gson.Gson;

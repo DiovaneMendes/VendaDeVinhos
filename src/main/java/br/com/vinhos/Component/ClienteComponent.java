@@ -49,17 +49,22 @@ public class ClienteComponent {
                 .orElse(0);
     }
 
-    public List<Cliente> ordenamentoMaiorMenor(List<Cliente> clientes){
+    public List<Cliente> ordenamentoClienteMaiorMenor(List<Cliente> clientes){
         Collections.reverse(clientes);
         return clientes;
     }
 
     public Cliente clienteMaiorCompra(TreeMap<Double, Cliente> mapClientes){
         List<Cliente> clientes = new ArrayList<>(mapClientes.values());
-        return ordenamentoMaiorMenor(clientes).get(0);
+        return ordenamentoClienteMaiorMenor(clientes).get(0);
     }
 
     public Double numeroDeHistoricos(Cliente cliente){
         return (double) cliente.getHistoricos().size();
+    }
+
+    public List<Item> ordenamentoItemMaiorMenor(List<Item> itens){
+        Collections.reverse(itens);
+        return itens;
     }
 }

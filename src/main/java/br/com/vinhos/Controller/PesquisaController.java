@@ -48,4 +48,12 @@ public class PesquisaController {
 
         return clienteService.clientesMaisFieis();
     }
+
+    @GetMapping("/{id}/recomendacao")
+    @ResponseBody
+    public Item recomendacao(@PathVariable Long id){
+        clienteService.popularBanco();
+
+        return clienteService.recomendacaoVinho(id);
+    }
 }
