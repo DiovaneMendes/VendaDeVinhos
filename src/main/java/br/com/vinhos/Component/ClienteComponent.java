@@ -7,10 +7,7 @@ import br.com.vinhos.Entity.Historico;
 import br.com.vinhos.Entity.Item;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -66,5 +63,33 @@ public class ClienteComponent {
     public List<Item> ordenamentoItemMaiorMenor(List<Item> itens){
         Collections.reverse(itens);
         return itens;
+    }
+
+    public Set<Item> populaSet(Cliente cliente){
+        Set<Item> itemSet = new HashSet<>();
+
+        for(Historico historico: cliente.getHistoricos()){
+            itemSet.addAll(historico.getItens());
+        }
+
+        return itemSet;
+    }
+
+    public TreeMap<Double, Item> geraItensRecomendacao(Set<Item> itens, Cliente cliente){
+        TreeMap<Double, Item> mapItem = new TreeMap<>();
+
+        for(Item itemDoSet: itens){
+            Double contador = 0D;
+
+            for(Historico historico: cliente.getHistoricos()){
+                for(Item itemFor : historico.getItens() ){
+                    if(itemDoSet.equals(itemFor)) contador++;
+                }
+            }
+
+            mapItem.put(contador, itemDoSet);
+        }
+
+        return mapItem;
     }
 }

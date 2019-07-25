@@ -15,10 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 @AllArgsConstructor
 @Service
@@ -98,25 +96,12 @@ public class ClienteService {
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
 
         if(clienteOptional.isPresent()){
-            TreeMap<Double, Item> mapItem = new TreeMap<>();
-            Cliente cliente = clienteOptional.orElse(new Cliente());
-            Set<Item> itemSet = new HashSet<>();
 
-            for(Historico historico: cliente.getHistoricos()){
-                itemSet.addAll(historico.getItens());
-            }
+            Cliente cliente = clienteOptional.get();
+            Set<Item> itensSet = clienteComponent.populaSet(cliente);
 
-            for(Item itemDoSet: itemSet){
-                Double contador = 0D;
+            TreeMap<Double, Item> mapItem = clienteComponent.geraItensRecomendacao(itensSet, cliente);
 
-                for(Historico historico: cliente.getHistoricos()){
-                    for(Item itemFor : historico.getItens() ){
-                        if(itemDoSet.equals(itemFor)) contador++;
-                    }
-                }
-
-                mapItem.put(contador, itemDoSet);
-            }
 
             List<Item> itens = new ArrayList<>(mapItem.values());
 
