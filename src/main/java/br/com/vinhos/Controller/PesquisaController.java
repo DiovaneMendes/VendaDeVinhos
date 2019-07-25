@@ -1,7 +1,9 @@
 package br.com.vinhos.Controller;
 
+import br.com.vinhos.DTO.ClienteDTO;
 import br.com.vinhos.Entity.Cliente;
 import br.com.vinhos.Entity.Item;
+import br.com.vinhos.Factory.ClienteFactory;
 import br.com.vinhos.Service.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,32 +23,33 @@ public class PesquisaController {
 
     @GetMapping("/todos")
     @ResponseBody
-    public List<Cliente> todos(){
+    public List<ClienteDTO> todos(){
         clienteService.popularBanco();
 
-        return clienteService.todos();
+        return ClienteFactory.getListClienteDTO( clienteService.todos() );
     }
 
     @GetMapping("/ordenados")
     @ResponseBody
-    public List<Cliente> ordenados(){
+    public List<ClienteDTO> ordenados(){
         clienteService.popularBanco();
 
-        return clienteService.ordenadoMaiorValorTotal();
+        return ClienteFactory.getListClienteDTO( clienteService.ordenadoMaiorValorTotal() );
     }
 
     @GetMapping("/maior_compra")
     @ResponseBody
-    public Cliente maiorCompra(){
-        return clienteService.maiorCompraUnicaDoisMilEDezesseis();
+    public ClienteDTO maiorCompra(){
+        Cliente cliente = clienteService.maiorCompraUnicaDoisMilEDezesseis();
+        return ClienteFactory.getCliente(cliente);
     }
 
     @GetMapping("/mais_fieis")
     @ResponseBody
-    public List<Cliente> maisFieis(){
+    public List<ClienteDTO> maisFieis(){
         clienteService.popularBanco();
 
-        return clienteService.clientesMaisFieis();
+        return ClienteFactory.getListClienteDTO( clienteService.clientesMaisFieis() );
     }
 
     @GetMapping("/{id}/recomendacao")
