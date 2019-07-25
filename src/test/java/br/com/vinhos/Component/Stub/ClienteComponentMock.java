@@ -7,9 +7,7 @@ import br.com.vinhos.Entity.Historico;
 import br.com.vinhos.Entity.Item;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -60,18 +58,22 @@ public class ClienteComponentMock {
                       Historico.builder()
                           .data( LocalDate.of(2015,7,1) )
                           .valorTotal(315.98)
+                          .itens(mockListaItens())
                           .build(),
                       Historico.builder()
                           .data( LocalDate.of(2016,5,28) )
                           .valorTotal(264.75)
+                          .itens(mockListaItens())
                           .build(),
                       Historico.builder()
                           .data( LocalDate.of(2016,10,15) )
                           .valorTotal(177.0)
+                          .itens(mockListaItens())
                           .build(),
                       Historico.builder()
                           .data( LocalDate.of(2013,3,21) )
                           .valorTotal(428.30)
+                          .itens(mockListaItens())
                           .build()
                     )
                 )
@@ -96,5 +98,15 @@ public class ClienteComponentMock {
         mapClientes.put(554.00, Cliente.builder().cpf("121.000.000-03").build());
 
         return mapClientes;
+    }
+
+    public Set<Item> mockSetItens(){
+        Set<Item> itens = new HashSet<>();
+
+        itens.addAll( Arrays.asList(Item.builder().categoria("Tinto").build(),
+                Item.builder().categoria("Branco").build(),
+                Item.builder().categoria("Rosé").build()) );
+
+        return itens;
     }
 }

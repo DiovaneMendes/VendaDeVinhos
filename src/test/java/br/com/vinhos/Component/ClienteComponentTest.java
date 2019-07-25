@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.*;
 
 public class ClienteComponentTest {
@@ -137,5 +137,38 @@ public class ClienteComponentTest {
         assertEquals( Item.builder().categoria("Rosé").build(), resultado.get(0) );
         assertEquals( Item.builder().categoria("Branco").build(), resultado.get(1) );
         assertEquals( Item.builder().categoria("Tinto").build(), resultado.get(2) );
+    }
+
+    @Test
+    public void deveRetornarSetDeItensComValoresDeItensDoHistoricoDoCliente(){
+        Cliente cliente = clienteComponentMock.mockCliente();
+
+        Set<Item> resultado  = clienteComponent.populaSetDeItens(cliente);
+
+        assertThat(resultado, containsInAnyOrder(
+                Item.builder().categoria("Tinto").build(),
+                Item.builder().categoria("Branco").build(),
+                Item.builder().categoria("Rosé").build())
+        );
+    }
+
+    @Test
+    public void deveGerarTreeMapComItensParaRecomendacao(){
+        Set<Item> itens  = clienteComponentMock.mockSetItens();
+        Cliente cliente = clienteComponentMock.mockCliente();
+
+        cliente.getHistoricos().get(0).getItens().get(0).setCategoria("a");
+        cliente.getHistoricos().get(0).getItens().get(1).setCategoria("aa");
+        cliente.getHistoricos().get(1).getItens().get(0).setCategoria("b");
+        cliente.getHistoricos().get(2).getItens().get(0).setCategoria("c");
+        cliente.getHistoricos().get(3).getItens().get(0).setCategoria("d");
+
+        TreeMap<Double, Item> itemTreeMap = clienteComponent.geraItensRecomendacao(itens, cliente);
+
+        int tamanhoItemTreeMap = itemTreeMap.values().size();
+
+        Item resultado = new ArrayList<>( itemTreeMap.values() ).get( tamanhoItemTreeMap-1 );
+
+        assertEquals( Item.builder().categoria("Rosé").build(), resultado);
     }
 }

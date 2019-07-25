@@ -98,7 +98,7 @@ public class ClienteService {
         if(clienteOptional.isPresent()){
 
             Cliente cliente = clienteOptional.get();
-            Set<Item> itensSet = clienteComponent.populaSet(cliente);
+            Set<Item> itensSet = clienteComponent.populaSetDeItens(cliente);
 
             TreeMap<Double, Item> mapItem = clienteComponent.geraItensRecomendacao(itensSet, cliente);
 

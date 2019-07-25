@@ -65,7 +65,7 @@ public class ClienteComponent {
         return itens;
     }
 
-    public Set<Item> populaSet(Cliente cliente){
+    public Set<Item> populaSetDeItens(Cliente cliente){
         Set<Item> itemSet = new HashSet<>();
 
         for(Historico historico: cliente.getHistoricos()){
