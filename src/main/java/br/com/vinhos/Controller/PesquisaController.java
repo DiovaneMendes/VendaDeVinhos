@@ -1,27 +1,23 @@
 package br.com.vinhos.Controller;
 
 import br.com.vinhos.Entity.Cliente;
-import br.com.vinhos.Entity.Historico;
-import br.com.vinhos.Repository.HistoricoRepository;
+import br.com.vinhos.Entity.Item;
 import br.com.vinhos.Service.ClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Map;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping("/v1/cliente")
 public class PesquisaController {
 
-    @Autowired
     private ClienteService clienteService;
-
-    @Autowired
-    private HistoricoRepository historicoRepository;
 
     @GetMapping("/todos")
     @ResponseBody
@@ -45,11 +41,11 @@ public class PesquisaController {
         return clienteService.maiorCompraUnicaDoisMilEDezesseis();
     }
 
-    @GetMapping("/h")
+    @GetMapping("/mais_fieis")
     @ResponseBody
-    public List<Historico> todosH(){
+    public List<Cliente> maisFieis(){
         clienteService.popularBanco();
 
-        return (List<Historico>) historicoRepository.findAll();
+        return clienteService.clientesMaisFieis();
     }
 }

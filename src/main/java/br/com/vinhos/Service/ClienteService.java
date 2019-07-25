@@ -26,7 +26,7 @@ public class ClienteService {
 
     @Transactional(rollbackFor = Exception.class)
     public void popularBanco() {
-        if(clienteRepository.findAll().isEmpty()) {
+        if( clienteRepository.findAll().isEmpty() ) {
             List<HistoricoDTO> historicoDTOS = RequestAPI.historico();
             List<ClienteDTO> clienteDTOS = RequestAPI.cliente();
 
@@ -62,9 +62,7 @@ public class ClienteService {
 
         List<Cliente> clientes = new ArrayList<>(mapClientes.values());
 
-        Collections.reverse(clientes);
-
-        return clientes;
+        return clienteComponent.ordenamentoMaiorMenor(clientes);
     }
 
     public Cliente maiorCompraUnicaDoisMilEDezesseis(){
@@ -78,5 +76,22 @@ public class ClienteService {
 
         return clienteComponent.clienteMaiorCompra(mapClientes);
     }
+
+    public List<Cliente> clientesMaisFieis(){
+        TreeMap<Double, Cliente> mapClientes = new TreeMap<>();
+
+        for ( Cliente cliente: clienteRepository.findAll() ){
+            Double numeroHistorico = clienteComponent.numeroDeHistoricos(cliente);
+
+            mapClientes.put(numeroHistorico, cliente);
+        }
+
+        List<Cliente> clientes = new ArrayList<>(mapClientes.values());
+
+        return clienteComponent.ordenamentoMaiorMenor(clientes);
+    }
+
+
+
 
 }
