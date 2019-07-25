@@ -119,5 +119,23 @@ public class ClienteComponentTest {
         assertEquals( Cliente.builder().cpf("997.000.000-08").build(), resultado );
     }
 
+    @Test
+    public void deveContabilizarNumeroDeHistoricosDeUmCliente(){
+        Cliente cliente = clienteComponentMock.mockCliente();
 
+        Double resultado = clienteComponent.numeroDeHistoricos(cliente);
+
+        assertEquals(4, resultado, 1);
+    }
+
+    @Test
+    public void deveInverterOrdemListaDeItens(){
+        List<Item> itens = clienteComponentMock.mockListaItens();
+
+        List<Item> resultado = clienteComponent.inverterOrdemListaItens(itens);
+
+        assertEquals( Item.builder().categoria("Rosé").build(), resultado.get(0) );
+        assertEquals( Item.builder().categoria("Branco").build(), resultado.get(1) );
+        assertEquals( Item.builder().categoria("Tinto").build(), resultado.get(2) );
+    }
 }

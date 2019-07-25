@@ -36,8 +36,13 @@ public class ClienteComponentMock {
     public List<Item> mockListaItens(){
         return Arrays.asList(
                 Item.builder()
+                    .categoria("Tinto")
                     .build(),
                 Item.builder()
+                    .categoria("Branco")
+                    .build(),
+                Item.builder()
+                    .categoria("Rosé")
                     .build()
         );
     }
