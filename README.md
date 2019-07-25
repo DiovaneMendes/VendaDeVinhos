@@ -1,4 +1,4 @@
-# VendaDeVinhos
+# Venda de Vinhos
 
 Alfredo possui uma loja de vinhos e, ao longo dos anos, guardou dados de seus
 clientes e um histórico de compras. Alfredo quer personalizar o atendimento e
