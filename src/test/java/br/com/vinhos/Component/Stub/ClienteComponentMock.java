@@ -9,6 +9,7 @@ import br.com.vinhos.Entity.Item;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import static java.util.stream.Collectors.toList;
 
@@ -70,5 +71,25 @@ public class ClienteComponentMock {
                     )
                 )
                 .build();
+    }
+
+    public List<Cliente> mockListaClientes(){
+        return Arrays.asList(
+            Cliente.builder().cpf("327.000.000-05").build(),
+            Cliente.builder().cpf("890.000.000-02").build(),
+            Cliente.builder().cpf("121.000.000-03").build(),
+            Cliente.builder().cpf("997.000.000-08").build()
+        );
+    }
+
+    public TreeMap<Double, Cliente> mockTreeMapCliente(){
+        TreeMap<Double, Cliente> mapClientes = new TreeMap<>();
+
+        mapClientes.put(328.60, Cliente.builder().cpf("890.000.000-02").build());
+        mapClientes.put(560.98, Cliente.builder().cpf("997.000.000-08").build());
+        mapClientes.put(127.50, Cliente.builder().cpf("327.000.000-05").build());
+        mapClientes.put(554.00, Cliente.builder().cpf("121.000.000-03").build());
+
+        return mapClientes;
     }
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.TreeMap;
 
 import static org.junit.Assert.*;
 
@@ -96,4 +97,27 @@ public class ClienteComponentTest {
 
         assertEquals(0, resultado, 1);
     }
+
+    @Test
+    public void deveInverterOrdemListaDeClientes(){
+        List<Cliente> clientes = clienteComponentMock.mockListaClientes();
+
+        List<Cliente> resultado  = clienteComponent.inverterOrdemListaClientes(clientes);
+
+        assertEquals( Cliente.builder().cpf("997.000.000-08").build(), resultado.get(0) );
+        assertEquals( Cliente.builder().cpf("121.000.000-03").build(), resultado.get(1) );
+        assertEquals( Cliente.builder().cpf("890.000.000-02").build(), resultado.get(2) );
+        assertEquals( Cliente.builder().cpf("327.000.000-05").build(), resultado.get(3) );
+    }
+
+    @Test
+    public void deveRetornarClienteComMaiorCompra(){
+        TreeMap<Double, Cliente> mapClientes = clienteComponentMock.mockTreeMapCliente();
+
+        Cliente resultado = clienteComponent.clienteMaiorCompra(mapClientes);
+
+        assertEquals( Cliente.builder().cpf("997.000.000-08").build(), resultado );
+    }
+
+
 }

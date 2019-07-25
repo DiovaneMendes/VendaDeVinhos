@@ -63,7 +63,7 @@ public class ClienteService {
 
         List<Cliente> clientes = new ArrayList<>(mapClientes.values());
 
-        return clienteComponent.ordenamentoClienteMaiorMenor(clientes);
+        return clienteComponent.inverterOrdemListaClientes(clientes);
     }
 
     public Cliente maiorCompraUnicaDoisMilEDezesseis(){
@@ -89,7 +89,7 @@ public class ClienteService {
 
         List<Cliente> clientes = new ArrayList<>(mapClientes.values());
 
-        return clienteComponent.ordenamentoClienteMaiorMenor(clientes);
+        return clienteComponent.inverterOrdemListaClientes(clientes);
     }
 
     public Item recomendacaoVinho(Long id){
@@ -105,7 +105,7 @@ public class ClienteService {
 
             List<Item> itens = new ArrayList<>(mapItem.values());
 
-            return clienteComponent.ordenamentoItemMaiorMenor(itens).get(0);
+            return clienteComponent.inverterOrdemListaItens(itens).get(0);
         }
 
         return new Item();
